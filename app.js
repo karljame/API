@@ -6,11 +6,25 @@ let occupations = {
     7516: {name: "tobacco töötaja ", rate: 0 },
 
 }
-const occupationkey = document.getElementById("occupation-select")
+const occupationSelect = document.getElementById('occupation-select')
+const salaryDiv = document.getElementById('salary')
 
 for (const key in occupations ) {
-    console.log(occupations[key].name)
+    const option = document.createElement('option')
+    option.value = key
+    option.text = occupations[key].name
+    occupationSelect.append(option)
+    console.log(option)  
+    
+
 }
+
+occupationSelect.addEventListener('change', () => {
+    if ( occupationSelect.value) {
+        salaryDiv.innerHTML = occupation[occupationSelect.value].rate
+    }
+})    
+
 
 fetch("http://andmebaas.stat.ee/sdmx-json/data/PA633/DBL322+DBL323+DBL329+DBL350+DBL351+DBL353+DBL432.3.1/all?startTime=2010&endTime=2010&dimensionAtObservation=allDimensions")
 .then(Response => {
