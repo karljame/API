@@ -4,6 +4,12 @@ let occupations = {
     7233: {name:"Põllu- ja tööstusmasinate mehaanikud ja remonditöökojad", rate: 0 },
     7513: {name:"piima toote töötaja", rate: 0 },
     7516: {name: "tobacco töötaja ", rate: 0 },
+
+}
+const occupationkey = document.getElementById("occupation-select")
+
+for (const key in occupations ) {
+    console.log(occupations[key].name)
 }
 
 fetch("http://andmebaas.stat.ee/sdmx-json/data/PA633/DBL322+DBL323+DBL329+DBL350+DBL351+DBL353+DBL432.3.1/all?startTime=2010&endTime=2010&dimensionAtObservation=allDimensions")
@@ -14,9 +20,18 @@ fetch("http://andmebaas.stat.ee/sdmx-json/data/PA633/DBL322+DBL323+DBL329+DBL350
 .then(data => {
     console.log(data)
 
+
+
     data.structure.dimensions.observation[0].values.forEach((el, i) => {
-        const occupationskey = el.name.split(' ')
-        console.log(el.name.split(' '))    
+        const occupationkey = (el.name.split(' ')[0])
+        const dataSetKey = i + ':0:0:0'
+        console.log(i)
+        console.log(el.name.split(' ')[0])
+        console.log(dataSetKey)
+        console.log(data.dataSets[0].observations[dataSetKey])
+        occupations[occupationkey].rate = data.dataSets[0].observations[dataSetKey][0]
+
+
     });
-  
+    console.log(occupations)
 })
